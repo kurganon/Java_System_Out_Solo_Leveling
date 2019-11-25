@@ -50,4 +50,8 @@ public class ActressHandler {
 	public void flush() {
 		this.active = false;
 	}
+	
+	public boolean isActive() {
+		return this.active;
+	}
 }

@@ -3,17 +3,20 @@ package ndl;
 import dft.ClassicGame;
 import map.Maps;
 import map.Position;
+import tls.GateTile;
 import tls.player.Player;
 
 public class StringHandler {
 	private Player player;
 	private ClassicGame game;
 	private Maps map;
+	private GateHandler gHandler;
 	
 	public StringHandler(Player player, ClassicGame game, Maps map) {
 		this.player = player;
 		this.game = game;
 		this.map = map;
+		this.gHandler = map.getGateHandler();
 	}
 	
 	public void checkInput(String input){
@@ -33,6 +36,29 @@ public class StringHandler {
 
 			return;
 		} else if(isAllies(input)) {
+
+			return;
+		} else if(isEnemies(input)) {
+
+			return;
+		} else if(isScan(input)) {
+
+			return;
+		} else if(isEnterGate(input)) {
+			if(gHandler.playerAtGate()) {
+				GateTile g = gHandler.getGateAtPlayer();
+				if(g.isActive()) {
+					if(g.isOpen()) {
+						map.enterGate(g);
+						game.isChanged();
+					}
+				}
+			}
+			return;
+		} else if(isAction(input)) {
+
+			return;
+		} else if(isSystemExit(input)) {
 
 			return;
 		}
@@ -221,6 +247,120 @@ public class StringHandler {
 	}
 	
 	private boolean isAllies(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isEnemies(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isScan(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isEnterGate(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isAction(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isSpeak(String input) {
+		String[] allies = {
+				"allies",
+				"party",
+				"aniki",
+				"group",
+				"verb�ndete",
+				"gruppe",
+				"team"
+		};
+		
+		for(int i = 0; i < allies.length; i++) {
+			if(input.contains(allies[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isSystemExit(String input) {
 		String[] allies = {
 				"allies",
 				"party",

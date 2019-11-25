@@ -1,6 +1,8 @@
 package map;
 
 import ndl.ActressHandler;
+import ndl.GateHandler;
+import tls.GateTile;
 import tls.Tile;
 import tls.player.Player;
 
@@ -9,6 +11,7 @@ public class Maps {
 	public static final int RENDER_LIMIT = 16;
 	
 	private MapInitiator mapIni;
+	private GateHandler gates;
 	private int currentLevel;
 	private char[][] room;
 	
@@ -19,24 +22,25 @@ public class Maps {
 	private ActressHandler[] actress = new ActressHandler[RENDER_LIMIT];
 	
 	/**
-	 * 0-(last-1) ~ etc
-	 * last ~ Spawncover
+	 * 0-last ~ etc
 	 */
 	private ActressHandler[] extra = new ActressHandler[RENDER_LIMIT];
+	private Position spawn;
 	
 	public Maps() {
-		
+		this.mapIni = new MapInitiator();
+		this.gates = new GateHandler();
 		this.currentLevel = 0;
-		this.room = mapIni.getRoom();
+		this.room = mapIni.getRoom(0);
 	}
 	
 	public Maps(int levelSelect) {
 		this.currentLevel = levelSelect;
-		this.room = mapIni.getRoom();
+		this.room = mapIni.getRoom(0);
 	}
 	
 	public void draw(Player player, boolean pause) {
-		char[][] toDraw = mapIni.getRoom();
+		char[][] toDraw = MapInitiator.hardCopy(this.room);
 		int drawStart;
 		int drawEnd;
 		Position p = actress[0].getPos();
@@ -129,6 +133,35 @@ public class Maps {
 		return !tile.isPassable(direction);
 	}
 	
+	public void addGate(Position p, char token, int level) {
+		this.addGate(p, token, level, 0);
+	}
+	
+	public void addGate(Position p, int level, int spawn) {
+		this.addGate(p, '|', level, spawn);
+	}
+	
+	public void addGate(Position p, char token, int level, int spawn) {
+		this.addGate(p, token, level, spawn, true, true);
+	}
+	
+	public void addGate(Position p, char token, int level, int spawn, boolean active, boolean open) {
+		for(int i = 0; i < extra.length; i++) {
+			if(!extra[i].isActive()) {
+				extra[i] = new ActressHandler(token, p);
+				gates.addGate(new GateTile(p, token, level, spawn, active, open));
+			}
+		}
+	}
+	
+	public void setSpawn(Position p) {
+		this.spawn = p;
+	}
+	
+	public Position getSpawn() {
+		return this.spawn;
+	}
+	
 	public void setPlayerPos(Position p, char token) {
 		this.actress[0] = new ActressHandler(token, p);
 	}
@@ -139,6 +172,14 @@ public class Maps {
 	
 	public void deSetOther(int rank) {
 		this.actress[rank].flush();
+	}
+	
+	public void setExtraPos(int rank, Position p, char token) {
+		this.extra[rank] = new ActressHandler(token, p);
+	}
+	
+	public void deSetExtra(int rank) {
+		this.extra[rank].flush();
 	}
 	
 	private char[][] addExtra(char[][] toDraw) {
@@ -161,7 +202,23 @@ public class Maps {
 		return toDraw;
 	}
 	
-	public Position getSpawn() {
-		return this.extra[Maps.RENDER_LIMIT].getPos();
+	public void enterGate(GateTile g) {
+		this.setLevel(g.getDestinationLevel());
+		this.room = mapIni.getRoom(g.getDestinationSpawn());
+		Player.getPlayer().spawn();
+		this.setPlayerPos(this.spawn, Player.TOKEN);
+	}
+	
+	public void flush() {
+		for(int i = 0; i < extra.length; i++) {
+			extra[i].flush();
+		}
+		for(int i = 1; i < extra.length; i++) {
+			actress[i].flush();
+		}
+	}
+	
+	public GateHandler getGateHandler() {
+		return this.gates;
 	}
 }

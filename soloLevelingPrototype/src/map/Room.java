@@ -5,23 +5,11 @@ import tls.*;
 public class Room {
 	private static BlockTile block = new BlockTile();
 	private static NothingTile nothing = new NothingTile();
-	private static PlayerSpawnTile playerSpawn = new PlayerSpawnTile();
 	
 	public static char[][] testRoom() {
 		int sizeX = 48;
 		
-		char[][] toR = new char[sizeX][Maps.SIZE_Y];
-		for(int i = 0; i < sizeX; i++) {
-			for(int j = 0; j < Maps.SIZE_Y; j++) {
-				if(j < Maps.SIZE_Y - 2 && !(i == 0 || i == sizeX -1)) {
-					toR[i][j] = nothing.getTileToken();
-				} else {
-					toR[i][j] = block.getTileToken();
-				}
-			}
-		}
-		
-		toR[3][5] = '_';
+		char[][] toR = basicRoom(sizeX);
 		
 		for(int i = toR.length / 2 - 3; i < toR.length / 2 + 3; i++) {
 			toR[i][5] = '#';
@@ -32,18 +20,7 @@ public class Room {
 	public static char[][] testRoomParkour() {
 		int size = 48;
 		
-		char[][] toR = new char[size][Maps.SIZE_Y];
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < Maps.SIZE_Y; j++) {
-				if(j < Maps.SIZE_Y - 2 && !(i == 0 || i == size -1)) {
-					toR[i][j] = nothing.getTileToken();
-				} else {
-					toR[i][j] = block.getTileToken();
-				}
-			}
-		}
-		
-		toR[3][5] = playerSpawn.getTileToken();
+		char[][] toR = basicRoom(size);
 		
 		toR[5][5] = block.getTileToken();
 		toR[6][5] = block.getTileToken();
@@ -60,9 +37,49 @@ public class Room {
 		toR[19][3] = block.getTileToken();
 		toR[20][3] = block.getTileToken();
 		toR[21][3] = block.getTileToken();
-		toR[21][2] = new GateTile().getTileToken();
 		
 		return toR;
 	}
-
+	
+	public static char[][] basicRoom(int size) {
+		char[][] toR = new char[size][Maps.SIZE_Y];
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < Maps.SIZE_Y; j++) {
+				if(j < Maps.SIZE_Y - 2 && !(i == 0 || i == size -1)) {
+					toR[i][j] = nothing.getTileToken();
+				} else {
+					toR[i][j] = block.getTileToken();
+				}
+			}
+		}
+		
+		return toR;
+	}
+	
+	public static char[][] addCaveCeiling(char[][] room, int offset) {
+		float random = 0;
+		for(int i = 0; i < room.length; i++) {
+			random = (float) (Math.random() * Math.random() * 10);
+			if(random < 3) {
+				room[i][offset] = '#';
+				if(random < 1) {
+					room[i][offset+1] = '#';
+				}
+			}
+		}
+		
+		return room;
+	}
+	
+	public static char[][] addCaveFloor(char[][] room, int offset) {
+		float random = 0;
+		for(int i = 0; i < room.length; i++) {
+			random = (float) (Math.random() * Math.random() * 10);
+			if(random < 2) {
+				room[i][Maps.SIZE_Y - offset] = '#';
+			}
+		}
+		
+		return room;
+	}
 }

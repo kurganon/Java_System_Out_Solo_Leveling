@@ -1,7 +1,7 @@
 package tls;
 
-import dft.Maps;
-import dft.Position;
+import map.Maps;
+import map.Position;
 
 public abstract class ActressTile extends Tile {
 	public static final int MAX_FOV = 14;

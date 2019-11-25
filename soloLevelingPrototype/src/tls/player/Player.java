@@ -1,4 +1,7 @@
-package dft;
+package tls.player;
+
+import map.Maps;
+import map.Position;
 
 public class Player {
 	public static final char TOKEN = 'S';

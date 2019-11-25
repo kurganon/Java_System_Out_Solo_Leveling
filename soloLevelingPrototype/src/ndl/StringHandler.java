@@ -1,4 +1,9 @@
-package dft;
+package ndl;
+
+import dft.ClassicGame;
+import map.Maps;
+import map.Position;
+import tls.player.Player;
 
 public class StringHandler {
 	private Player player;
@@ -153,7 +158,7 @@ public class StringHandler {
 				"Inventory",
 				"Inventar",
 				"Items",
-				"Gegenstände",
+				"Gegenstï¿½nde",
 				"Besitz"
 		};
 		
@@ -185,7 +190,7 @@ public class StringHandler {
 		String[] skills = {
 				"skills",
 				"abilities",
-				"fähigkeiten",
+				"fï¿½higkeiten",
 				"fertigkeiten"
 		};
 		
@@ -204,7 +209,7 @@ public class StringHandler {
 				"laden",
 				"market",
 				"markt",
-				"geschäft"
+				"geschï¿½ft"
 		};
 		
 		for(int i = 0; i < shop.length; i++) {
@@ -221,7 +226,7 @@ public class StringHandler {
 				"party",
 				"aniki",
 				"group",
-				"verbündete",
+				"verbï¿½ndete",
 				"gruppe",
 				"team"
 		};

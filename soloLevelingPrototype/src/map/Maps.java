@@ -1,6 +1,7 @@
-package dft;
+package map;
 
 import tls.Tile;
+import tls.player.Player;
 
 public class Maps {
 	public static final int SIZE_Y = 8;

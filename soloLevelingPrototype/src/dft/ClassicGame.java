@@ -2,6 +2,10 @@ package dft;
 
 import java.util.Scanner;
 
+import map.Maps;
+import ndl.StringHandler;
+import tls.player.Player;
+
 public class ClassicGame {
 	private Scanner sc = new Scanner(System.in);
 	private Maps maps;

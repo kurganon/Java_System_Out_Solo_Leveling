@@ -1,4 +1,4 @@
-package dft;
+package map;
 
 public class Position {
 	public int x;

@@ -1,7 +1,7 @@
 package tls;
 
-import dft.Maps;
-import dft.Position;
+import map.Maps;
+import map.Position;
 
 public abstract class ActressTile extends Tile {
 	public static final int MAX_FOV = 14;
@@ -113,22 +113,6 @@ public abstract class ActressTile extends Tile {
 		return this.fov;
 	}
 	
-	private void levelUp(int amount) {
-		for(int i = 0; i < amount; i++) {
-			this.lvl++;
-			this.stamina++;
-			this.power++;
-			this.agility++;
-			this.perception++;
-			this.intelligence++;
-		}
-
-		this.recalcHealth();
-		this.recalcMana();
-		this.recalcJumpLimit();
-		this.restoreAll();
-	}
-	
 	private void recalcHealth() {
 		this.maxHealth = this.stamina * 10; 
 	}
@@ -148,6 +132,7 @@ public abstract class ActressTile extends Tile {
 		this.agility = 1;
 		this.perception = 1;
 		this.intelligence = 1;
+		this.fov = 9;
 
 		this.recalcHealth();
 		this.recalcMana();

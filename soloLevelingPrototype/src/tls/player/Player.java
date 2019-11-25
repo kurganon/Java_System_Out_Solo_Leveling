@@ -1,68 +1,24 @@
-package dft;
+package tls.player;
 
-public class Player {
+import map.Maps;
+import map.Position;
+import tls.ActressTile;
+
+public class Player extends ActressTile {
+	private static Player player;
 	public static final char TOKEN = 'S';
 	public static final int MAX_FOV = 14;
-	private Maps map;
-	private Position pos;
 	
+	private int exp;
 	private int[] neededExp;
 	
-	private int lvl;
-	private int exp;
-	private int maxHealth;
-	private int health;
-	private int maxMana;
-	private int mana;
-	private int stamina;
-	private int power;
-	private int agility;
-	private int perception;
-	private int intelligence;
-	
-	private boolean jumping;
-	private int jumpLimit;
-	private int jumpCounter;
-	private int fov;
-	
 	public Player(Maps map) {
-		this.map = map;
-		this.jumping = false;
-		this.jumpCounter = 0;
-		
-		
-		this.statInit();
+		super(map);
+		Player.player = this;
 	}
 	
-	public boolean isJump() {
-		return this.jumping;
-	}
-	
-	public void jumped() {
-		if(this.jumpLimit > this.jumpCounter) {
-			this.jumpCounter++;
-			if(!this.map.solid(this.pos, 0)) {
-				this.pos.y--;
-			}
-			if(this.jumpCounter == this.jumpLimit) {
-				this.jumpCounter = 0;
-				this.jumping = false;
-			} else {
-				this.jumping = true;
-			}
-		}
-	}
-	
-	public void spawn(Position pos) {
-		this.pos = pos;
-	}
-	
-	public void setPosition(Position pos) {
-		this.pos = pos;
-	}
-	
-	public Position getPosition() {
-		return this.pos;
+	public void spawn() {
+		this.pos = map.getSpawn();
 	}
 	
 	public void addExp(int amount) {
@@ -79,27 +35,6 @@ public class Player {
 		}
 		
 		this.levelUp(lvlCounter);
-	}
-	
-	public void restoreAll() {
-		this.health = this.maxHealth;
-		this.mana = this.maxMana;
-	}
-	
-	public void restoreHealth(int amount) {
-		if(this.maxHealth - this.health < amount) {
-			this.health = this.maxHealth;
-		} else {
-			this.health += amount;
-		}
-	}
-	
-	public void restoreMana(int amount) {
-		if(this.maxMana - this.mana < amount) {
-			this.mana = this.maxMana;
-		} else {
-			this.mana += amount;
-		}
 	}
 	
 	public int getHealth() {
@@ -239,5 +174,9 @@ public class Player {
 			}
 		}
 		return toR;
+	}
+	
+	public static Player getPlayer() {
+		return Player.player;
 	}
 }

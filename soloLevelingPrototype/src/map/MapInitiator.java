@@ -3,13 +3,15 @@ package map;
 public class MapInitiator {
 	
 	private Maps map;
-	private char[][] room;
+	
+	public MapInitiator(Maps map) {
+		this.map = map;
+	}
 
 	public char[][] getRoom(int spawn) {
 		switch(map.getLevel()) {
 			case 1 : return this.testRoom1(spawn);
-			case 0:
-				
+			case 0 :
 			default: return this.testRoom0(spawn);
 		}
 	}
@@ -36,7 +38,6 @@ public class MapInitiator {
 	
 	private char[][] testRoom1 (int spawn) {
 		char[][] newRoom = Room.testRoomParkour();
-		newRoom = Room.addCaveCeiling(newRoom, 0);
 		
 		map.flush();
 		map.addGate(new Position(21, 2), 0, 0);

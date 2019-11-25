@@ -264,7 +264,7 @@ public class StringHandler {
 		}
 		return false;
 	}
-	
+	// TODO
 	private boolean isEnemies(String input) {
 		String[] allies = {
 				"allies",
@@ -283,14 +283,15 @@ public class StringHandler {
 		}
 		return false;
 	}
-	
+	// TODO
 	private boolean isScan(String input) {
 		String[] allies = {
 				"allies",
 				"party",
 				"aniki",
 				"group",
-				"verb�ndete",
+				"verbundete",
+				"verbuendete",
 				"gruppe",
 				"team"
 		};
@@ -304,24 +305,25 @@ public class StringHandler {
 	}
 	
 	private boolean isEnterGate(String input) {
-		String[] allies = {
-				"allies",
-				"party",
-				"aniki",
-				"group",
-				"verb�ndete",
-				"gruppe",
-				"team"
+		String[] sesam = {
+				"enter",
+				"leave",
+				"eintreten",
+				"betreten",
+				"austreten",
+				"trespas",
+				"passieren",
+				"pass"
 		};
 		
-		for(int i = 0; i < allies.length; i++) {
-			if(input.contains(allies[i])) {
+		for(int i = 0; i < sesam.length; i++) {
+			if(input.contains(sesam[i])) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+	// TODO
 	private boolean isAction(String input) {
 		String[] allies = {
 				"allies",
@@ -340,7 +342,7 @@ public class StringHandler {
 		}
 		return false;
 	}
-	
+	// TODO
 	private boolean isSpeak(String input) {
 		String[] allies = {
 				"allies",
@@ -359,7 +361,7 @@ public class StringHandler {
 		}
 		return false;
 	}
-	
+	// TODO
 	private boolean isSystemExit(String input) {
 		String[] allies = {
 				"allies",

@@ -28,13 +28,17 @@ public class Maps {
 	private Position spawn;
 	
 	public Maps() {
-		this.mapIni = new MapInitiator();
+		this.mapIni = new MapInitiator(this);
 		this.gates = new GateHandler();
+		this.initActressHandlers();
 		this.currentLevel = 0;
 		this.room = mapIni.getRoom(0);
 	}
 	
 	public Maps(int levelSelect) {
+		this.mapIni = new MapInitiator(this);
+		this.gates = new GateHandler();
+		this.initActressHandlers();
 		this.currentLevel = levelSelect;
 		this.room = mapIni.getRoom(0);
 	}
@@ -150,6 +154,7 @@ public class Maps {
 			if(!extra[i].isActive()) {
 				extra[i] = new ActressHandler(token, p);
 				gates.addGate(new GateTile(p, token, level, spawn, active, open));
+				return;
 			}
 		}
 	}
@@ -209,11 +214,21 @@ public class Maps {
 		this.setPlayerPos(this.spawn, Player.TOKEN);
 	}
 	
+	public void initActressHandlers() {
+		Position p = new Position(0,0);
+		extra[0] = new ActressHandler('0', p);
+		for(int i = 1; i < extra.length; i++) {
+			extra[i] = new ActressHandler('0', p);
+			actress[i] = new ActressHandler('0', p);
+		}
+		this.flush();
+	}
+	
 	public void flush() {
 		for(int i = 0; i < extra.length; i++) {
 			extra[i].flush();
 		}
-		for(int i = 1; i < extra.length; i++) {
+		for(int i = 1; i < actress.length; i++) {
 			actress[i].flush();
 		}
 	}

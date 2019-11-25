@@ -49,7 +49,7 @@ public class ClassicGame {
 	}
 	
 	private void spawn() {
-		this.player.spawn(maps.getSpawn());
+		this.player.spawn();
 		this.maps.setPlayerPos(this.player.getPosition(), Player.TOKEN);
 		maps.draw(player, pause);
 	}

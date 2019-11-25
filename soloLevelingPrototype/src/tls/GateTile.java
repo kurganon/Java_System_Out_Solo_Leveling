@@ -1,16 +1,14 @@
 package tls;
 
+import map.Position;
+
 public class GateTile extends Tile{
 	private int level;
+	private Position pos;
 	
 	public GateTile() {
-		this.tileToken = '║';
-		this.passable = new boolean[4];
-		this.passable[0] = true; // north
-		this.passable[1] = true; // east
-		this.passable[2] = true; // south
-		this.passable[3] = true; // west
-		this.durability = 0;
+		super();
+		this.tileToken = '|';
 		this.level = 0;
 	}
 	public GateTile(char token, boolean[] passable, int durability, int level) {

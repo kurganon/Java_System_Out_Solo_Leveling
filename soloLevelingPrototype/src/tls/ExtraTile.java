@@ -1,5 +1,5 @@
 package tls;
 
-public class ExtraTile {
+public class ExtraTile extends Tile{
 
 }

@@ -8,4 +8,12 @@ public class Position {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public boolean isEqual(Position p) {
+		if(this.x == p.x && this.y == p.y) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

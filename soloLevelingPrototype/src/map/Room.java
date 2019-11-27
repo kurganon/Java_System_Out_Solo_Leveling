@@ -82,4 +82,15 @@ public class Room {
 		
 		return room;
 	}
+	
+	public static int groundAt(char[] col) {
+		int ret = 0;
+		for(int i = col.length -1; i >= 0; i++) {
+			if(col[i] != block.getTileToken()) {
+				ret = i;
+				break;
+			}
+		}
+		return ret;
+	}
 }
